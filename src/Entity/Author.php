@@ -12,7 +12,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     normalizationContext={}
+ *      normalizationContext={
+ *          "groups"={
+ *              "read:author"
+ *          }
+ *      }
  * )
  * @ORM\Entity(repositoryClass=AuthorRepository::class)
  */
@@ -22,29 +26,32 @@ class Author
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("read:author")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read:post")
+     * @Groups({"read:post", "read:author"})
      */
     private $first_name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read:post")
+     * @Groups({"read:post", "read:author"})
      */
     private $last_name;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Email(message = "The email '{{ value }}' is not a valid email.")
+     * @Groups("read:author")
      */
     private $email;
 
     /**
      * @ORM\OneToMany(targetEntity=Post::class, mappedBy="author")
+     * @Groups("read:author")
      */
     private $posts;
 

@@ -32,7 +32,7 @@ class Post
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="The name is necessary")
      * @Assert\Length(minMessage = "The name must be at least {{ limit }} characters long", min=3)
-     * @Groups("read:post")
+     * @Groups({"read:post", "read:author"})
      */
     private $name;
 
@@ -40,13 +40,13 @@ class Post
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="The content is necessary")
      * @Assert\Length(min=3)
-     * @Groups("read:post")
+     * @Groups({"read:post", "read:author"})
      */
     private $content;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups("read:post")
+     * @Groups({"read:post", "read:author"})
      */
     private $created_at;
 
